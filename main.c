@@ -26,6 +26,11 @@ int employeeIdList[] = {};
 char destinationList[][25] = {};
 char leaveDateList[][2][15] = {};
 
+int ticketId;
+int employeeId;
+char destination[25];
+char leaveDate[2][15];
+
 int main()
 {
 	App();
@@ -74,11 +79,6 @@ void SetupMenu()
 
 void AddBooking()
 {
-	int ticketId;
-	int employeeId;
-	char destination[25];
-	char leaveDate[2][15];
-	
 	int lastIndex = sizeof(ticketIdList) / sizeof(ticketId);
 	
 	printf("input employee id: ");
