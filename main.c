@@ -6,6 +6,7 @@
 #define FALSE 0
 
 #define NOT_FOUND -1
+#define MAX_ELEMENT 100
 
 void SetupMenu();
 void SetupMenuHeader();
@@ -15,7 +16,7 @@ int UpdateBooking(int);
 int SearchBooking(int);
 int DeleteBooking(int);
 void Booking();
-void BookingHeader();
+void BookingList();
 
 void AddEmployee();
 void UpdateEmployee();
@@ -26,10 +27,10 @@ void EmployeeHeader();
 
 void App();
 
-int ticketIdList[] = {};
-int employeeIdList[] = {};
-char destinationList[][25] = {};
-char leaveDateList[][2][15] = {};
+int ticketIdList[MAX_ELEMENT];
+int employeeIdList[MAX_ELEMENT];
+char destinationList[MAX_ELEMENT][25];
+char leaveDateList[MAX_ELEMENT][2][15];
 
 int ticketId;
 int employeeId;
@@ -72,17 +73,8 @@ void SetupMenu()
 	switch(key) {
 		case '1': 
 			AddBooking();
-			key = getch();
-			printf("Press %c!", key);
-			printf("input ticket id: ");
-			scanf("%d", &ticketId);
-			if (UpdateBooking(ticketId) != 0) {
-				printf("updated");
-			} else {
-				printf("failed to update.");
-			}
-			
-			printf("%s", destinationList[0]);
+			AddBooking();
+			BookingList();
 			
 			break;
 		case '2': 
@@ -97,6 +89,7 @@ void SetupMenu()
 
 void InputTicket(int index, int update)
 {
+	printf("index: %d", index);
 	if ( update == FALSE) {
 		printf("input employee id: ");
 		scanf("%d", &employeeId);
@@ -122,7 +115,8 @@ void InputTicket(int index, int update)
 
 void AddBooking()
 {
-	InputTicket(recordedLength++, FALSE);
+	InputTicket(recordedLength, FALSE);
+	recordedLength++;
 }
 
 int UpdateBooking(int ticketId)
@@ -173,4 +167,13 @@ int DeleteBooking(int ticketId)
 		
 	}
 	--recordedLength;
+}
+
+void BookingList()
+{
+	printf("%-20s%-20s%-20s%-20s\n", "ID", "Destination", "Leave Date", "Leave Time");
+	for(int index = 0; index < recordedLength; index++) {
+		printf("%-20d%-20s%-20s%-20s\n", ticketIdList[index], destinationList[index], leaveDateList[index][0], leaveDateList[index][1]);
+	}
+	
 }
