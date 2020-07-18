@@ -18,22 +18,34 @@ int DeleteBooking(int);
 void Booking();
 void BookingList();
 
+int DeleteBooking(int);
+void BookingList();
+
 void AddEmployee();
-void UpdateEmployee();
-void SearchEmployee();
-void DeleteEmployee();
+int UpdateEmployee(int);
+int SearchEmployee(int);
+int DeleteEmployee(int);
 void Employees();
-void EmployeeHeader();
+void EmployeeList();
 
 void App();
 
+/** ticket **/
 int ticketIdList[MAX_ELEMENT];
-int employeeIdList[MAX_ELEMENT];
+int ticketEmployeeIdList[MAX_ELEMENT];
 char destinationList[MAX_ELEMENT][25];
 char leaveDateList[MAX_ELEMENT][2][15];
 
-int ticketId;
+/** employee **/
+int employeeIdList[MAX_ELEMENT];
+char employeeNameList[MAX_ELEMENT][25];
+char genderList[MAX_ELEMENT];
+
 int employeeId;
+char employeeName[25];
+char gender;
+
+int ticketId;
 char destination[25];
 char leaveDate[2][15];
 
@@ -73,9 +85,6 @@ void SetupMenu()
 	switch(key) {
 		case '1': 
 			AddBooking();
-			AddBooking();
-			BookingList();
-			
 			break;
 		case '2': 
 			printf("Press %c!", key);
@@ -89,11 +98,10 @@ void SetupMenu()
 
 void InputTicket(int index, int update)
 {
-	printf("index: %d", index);
 	if ( update == FALSE) {
 		printf("input employee id: ");
 		scanf("%d", &employeeId);
-		employeeIdList[index] = employeeId;
+		ticketEmployeeIdList[index] = employeeId;
 	
 		printf("input ticket id: ");
 		scanf("%d", &ticketId);
@@ -111,6 +119,21 @@ void InputTicket(int index, int update)
 	gets(leaveDate[1]);
 
 	memcpy(leaveDateList[index], leaveDate, sizeof(leaveDate));	
+}
+
+void InputEmployee(int index, int update)
+{
+	if ( update == FALSE) {
+		printf("input employee id: ");
+		scanf("%d", &employeeId);
+		employeeIdList[index] = employeeId;
+	}
+	
+	printf("input employee's name: ");
+	fflush(stdin);
+	gets(employeeName);
+	strcpy(employeeNameList[index], employeeName);
+
 }
 
 void AddBooking()
